@@ -27,6 +27,8 @@ for file in allfiles:
             text = "".join(re.findall(text_regex, document))\
                       .replace("<TEXT>", "").replace("</TEXT>", "")\
                       .replace("\n", " ")
+            
+            print(docno+" Text = "+text)
 
             # step 1 - lower-case words, remove punctuation, remove stop-words, etc. 
             # step 2 - create tokens 
