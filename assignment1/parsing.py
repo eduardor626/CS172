@@ -4,6 +4,22 @@ import zipfile
 # import string library function 
 import string 
 
+class term_attributes:
+  
+  def __init__(self, doc_id , list_of_pos, frequency):
+    self.doc_id = doc_id
+    self.list_of_pos = list_of_pos
+    self.frequency = frequency
+
+  def get_id(self):
+      return self.doc_id
+ 
+  def get_list_of_pos(self):
+      return self.list_of_pos
+  
+  def get_frequency(self):
+      return self.frequency
+
 # Regular expressions to extract data from the corpus
 doc_regex = re.compile("<DOC>.*?</DOC>", re.DOTALL)
 docno_regex = re.compile("<DOCNO>.*?</DOCNO>")
@@ -49,38 +65,62 @@ for file in allfiles:
         #for every document-- get the doc# and the doc#'s text
         print("There are  "+str(len(result))+" documents in this document")
         for document in result[0:1]:
+            
             # Retrieve contents of DOCNO tag
             docno = re.findall(docno_regex, document)[0].replace("<DOCNO>", "").replace("</DOCNO>", "").strip()
+            
             # Retrieve contents of TEXT tag
             text = "".join(re.findall(text_regex, document))\
                       .replace("<TEXT>", "").replace("</TEXT>", "")\
                       .replace("\n", " ")
 
+            #remove punctuation
             text = text.translate(str.maketrans('', '', string.punctuation))
             
+            text = text.lower() 
+            words = text.split() 
 
-            # step 1 - lower-case words, remove punctuation, remove stop-words, etc. 
-            text = text.lower() # lower-case words
-            words = text.split()
+            local_dic = {}
 
-            for word in words: 
-                if word not in word_dic:
-                    word_dic[word] = 1
-                    word=""
+            # but first lets define how many times a word occurs and at what position
+            for i, word in enumerate(words,start=1):
+                if word in local_dic:
+                    frequency = local_dic[word][1] + 1
+                    local_dic[word][0].append(i)
+                    local_dic[word][1] = frequency
+
                 else:
-                    word_dic[word] = word_dic[word] + 1
+                    local_dic[word] = [[i],1]
 
+            for term in local_dic:
+                # print(term, '->', local_dic[term])
+                mytuple = (docno,local_dic[term])
+                # print(mytuple)
+
+                if term not in word_dic:
+                    word_dic[term] = [mytuple]
+                else:
+                    word_dic[term].append(mytuple)
+            
+                
+            print("Length of word dic at the end = "+str(len(word_dic)))
             print("DocID: "+str(docID))
             print("Doc#: "+docno)
-            # print("Text: "+text)
+            print("Text: "+text)
+            for t in word_dic:
+                print(t,'->',word_dic[t])
             docID = docID+1
 
             
-    x = x +1
+    x = x +1 #increment what file we are on
     print("size of dic = "+str(len(word_dic)))
 
 
 print(sorted(word_dic))
+
+# check to make sure that 
+
+
             
             # step 2 - create tokens 
             # step 3 - build index
