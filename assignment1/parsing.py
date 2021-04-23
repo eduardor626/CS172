@@ -93,7 +93,6 @@ for file in allfiles:
                 else:
                     local_dic[word] = [[i],1]
 
-
             total_terms = 0
             for term in local_dic:
                 # print(term, '->', local_dic[term])
@@ -114,19 +113,37 @@ for file in allfiles:
             print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
             print("Length of word dic at the end = "+str(len(word_dic)))
 
-            for t in word_dic:
-                print(t,'->',word_dic[t])
+            # for t in word_dic:
+            #     print(t,'->',word_dic[t])
 
-            exit(0) #testing on one document for now
+            #exit(0) #testing on one document for now
             #we can remove the exit after we are positive our implementation works
                     
 
             
-    x = x +1 #increment what file we are on
-    print("size of dic = "+str(len(word_dic)))
+    x = x + 1 #increment what file we are on
+#     print("size of dic = "+str(len(word_dic)))
 
 
-print(sorted(word_dic))
+# print(sorted(word_dic))
+
+for term in word_dic:
+    total_qty = 0
+    for tup in word_dic[term]:
+        total_qty = total_qty + tup[1][1]
+    word_dic[term].append(total_qty)
+    # print(term+'->'+str(word_dic[term]))
+
+
+
+    # print(term+" total frequency = "+str(total_qty))
+    
+try:
+    text_file = open('text_file.txt', 'wt')
+    text_file.write(str(word_dic))
+    text_file.close()
+except:
+    print("Unable to write to file")
 
 
             
