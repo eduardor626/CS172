@@ -92,9 +92,13 @@ for file in allfiles:
                 else:
                     local_dic[word] = [[i],1]
 
+
+            total_terms = 0
             for term in local_dic:
                 # print(term, '->', local_dic[term])
                 mytuple = (docno,local_dic[term])
+                frequency_of_term = len(local_dic[term][0])
+                total_terms = total_terms + frequency_of_term
                 # print(mytuple)
 
                 if term not in word_dic:
@@ -107,6 +111,8 @@ for file in allfiles:
             print("DocID: "+str(docID))
             print("Doc#: "+docno)
             print("Text: "+text)
+            print("Total terms: "+str(total_terms))
+            print("Total Unique terms: "+str(len(local_dic)))
             for t in word_dic:
                 print(t,'->',word_dic[t])
             docID = docID+1
