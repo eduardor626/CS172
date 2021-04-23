@@ -4,22 +4,6 @@ import zipfile
 # import string library function 
 import string 
 
-class term_attributes:
-  
-  def __init__(self, doc_id , list_of_pos, frequency):
-    self.doc_id = doc_id
-    self.list_of_pos = list_of_pos
-    self.frequency = frequency
-
-  def get_id(self):
-      return self.doc_id
- 
-  def get_list_of_pos(self):
-      return self.list_of_pos
-  
-  def get_frequency(self):
-      return self.frequency
-
 # Regular expressions to extract data from the corpus
 doc_regex = re.compile("<DOC>.*?</DOC>", re.DOTALL)
 docno_regex = re.compile("<DOCNO>.*?</DOCNO>")
@@ -95,11 +79,9 @@ for file in allfiles:
 
             total_terms = 0
             for term in local_dic:
-                # print(term, '->', local_dic[term])
                 mytuple = (docno,local_dic[term])
                 frequency_of_term = len(local_dic[term][0])
                 total_terms = total_terms + frequency_of_term
-                # print(mytuple)
 
                 if term not in word_dic:
                     if term not in stopwords_set:
@@ -113,19 +95,10 @@ for file in allfiles:
             print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
             print("Length of word dic at the end = "+str(len(word_dic)))
 
-            # for t in word_dic:
-            #     print(t,'->',word_dic[t])
 
-            #exit(0) #testing on one document for now
-            #we can remove the exit after we are positive our implementation works
-                    
-
+            #exit(0) #testing on one document for now                    
             
     x = x + 1 #increment what file we are on
-#     print("size of dic = "+str(len(word_dic)))
-
-
-# print(sorted(word_dic))
 
 for term in word_dic:
     total_qty = 0
@@ -134,19 +107,14 @@ for term in word_dic:
     word_dic[term].append(total_qty)
     # print(term+'->'+str(word_dic[term]))
 
-
-
-    # print(term+" total frequency = "+str(total_qty))
     
 try:
     text_file = open('text_file.txt', 'wt')
     text_file.write(str(word_dic))
     text_file.close()
+
+    text_file_doc = open('doc_file.txt','wt')
+    text_file_doc.write(str(docno_dic))
+    text_file_doc.close()
 except:
     print("Unable to write to file")
-
-
-            
-            # step 2 - create tokens 
-            # step 3 - build index
-            
