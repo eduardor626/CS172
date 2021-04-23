@@ -30,6 +30,8 @@ stopwords_set = set()
 
 #where we'll store all our words from the text
 word_dic = {}
+#where we'll store all our docno's and unique terms, total terms , etc.
+docno_dic = {}
 
 # inverted indices to map the ids
 # tokenization process is as a conversion from a document to a sequence of (term_id, doc_id, position) 
@@ -61,8 +63,7 @@ for file in allfiles:
         filedata = f.read()
         result = re.findall(doc_regex, filedata)  # Match the <DOC> tags and fetch documents
 
-        docID = 1
-        #for every document-- get the doc# and the doc#'s text
+         #for every document-- get the doc# and the doc#'s text
         print("There are  "+str(len(result))+" documents in this document")
         for document in result[0:1]:
             
@@ -102,20 +103,23 @@ for file in allfiles:
                 # print(mytuple)
 
                 if term not in word_dic:
-                    word_dic[term] = [mytuple]
+                    if term not in stopwords_set:
+                        word_dic[term] = [mytuple]
                 else:
                     word_dic[term].append(mytuple)
             
                 
-            print("Length of word dic at the end = "+str(len(word_dic)))
-            print("DocID: "+str(docID))
-            print("Doc#: "+docno)
             print("Text: "+text)
-            print("Total terms: "+str(total_terms))
-            print("Total Unique terms: "+str(len(local_dic)))
+            docno_dic[docno] = (total_terms,len(local_dic))
+            print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
+            print("Length of word dic at the end = "+str(len(word_dic)))
+
             for t in word_dic:
                 print(t,'->',word_dic[t])
-            docID = docID+1
+
+            exit(0) #testing on one document for now
+            #we can remove the exit after we are positive our implementation works
+                    
 
             
     x = x +1 #increment what file we are on
@@ -123,8 +127,6 @@ for file in allfiles:
 
 
 print(sorted(word_dic))
-
-# check to make sure that 
 
 
             
