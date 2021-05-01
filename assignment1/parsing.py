@@ -41,17 +41,17 @@ def get_dictionary():
         allfiles = [os.path.join(dir_path, filename).replace("\\", "/") for filename in file_names if (filename != "readme" and filename != ".DS_Store")]
     
     x = 1
-    print("Length of all files = "+str(len(allfiles)))
+    # print("Length of all files = "+str(len(allfiles)))
 
     for file in allfiles:
 
-        print("in file number = "+str(x))
+        # print("in file number = "+str(x))
         with open(file, 'r', encoding='ISO-8859-1') as f:
             filedata = f.read()
             result = re.findall(doc_regex, filedata)  # Match the <DOC> tags and fetch documents
 
              #for every document-- get the doc# and the doc#'s text
-            print("There are  "+str(len(result))+" documents in this document")
+            # print("There are  "+str(len(result))+" documents in this document")
             for document in result[0:]:
                 
                 # Retrieve contents of DOCNO tag
@@ -95,12 +95,7 @@ def get_dictionary():
             
                 
                 # print("Text: "+text)
-                docno_dic[docno] = (total_terms,len(local_dic))
-                # print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
-                # print("Length of word dic at the end = "+str(len(word_dic)))
-
-
-                #exit(0) #testing on one document for now                    
+                docno_dic[docno] = (total_terms,len(local_dic))                
             
         x = x + 1 #increment what file we are on
 
@@ -117,15 +112,15 @@ def get_doc():
     return docno_dic
 
     
-    try:
-        text_file = open('text_file.txt', 'wt')
-        # text_file.write(str(word_dic))
-        for key in word_dic:
-            text_file.write(str(key)+":"+str(word_dic[key])+"\n")
-        text_file.close()
+    # try:
+    #     text_file = open('text_file.txt', 'wt')
+    #     # text_file.write(str(word_dic))
+    #     for key in word_dic:
+    #         text_file.write(str(key)+":"+str(word_dic[key])+"\n")
+    #     text_file.close()
 
-        text_file_doc = open('doc_file.txt','wt')
-        text_file_doc.write(str(docno_dic))
-        text_file_doc.close()
-    except:
-        print("Unable to write to file")
+    #     text_file_doc = open('doc_file.txt','wt')
+    #     text_file_doc.write(str(docno_dic))
+    #     text_file_doc.close()
+    # except:
+    #     print("Unable to write to file")

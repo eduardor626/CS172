@@ -29,22 +29,26 @@ def get_content():
 def getInput(arguments):
     if len(arguments) <= 1 :
         return ""
-    query_type = arguments[1]
-    query = arguments[2]
-    
-    print("Query Type: "+str(query_type))
-    print("Query: "+str(query))
 
-    if query_type == "--term":
-        term_attr = get_term_attributes(query)
-        if len(term_attr) != 0:
-            display_term_attr(query,term_attr)
-    elif query_type == "--doc":
-        doc_attr = get_doc_attributes(query)
-        if len(doc_attr) != 0:
-            display_doc_attr(query, doc_attr)
-    else:
-        print("Error in Input")
+    if len(arguments) <=3:
+        query_type = arguments[1]
+        query = arguments[2]
+    
+        print("Query Type: "+str(query_type))
+        print("Query: "+str(query))
+
+        if query_type == "--term":
+            term_attr = get_term_attributes(query)
+            if len(term_attr) != 0:
+                display_term_attr(query,term_attr)
+        elif query_type == "--doc":
+            doc_attr = get_doc_attributes(query)
+            if len(doc_attr) != 0:
+                display_doc_attr(query, doc_attr)
+        else:
+            print("Error in Input")
+    elif len(arguments) > 3:
+        print("Handle multiple arguments here..\n")
 
 def display_term_attr(query,term_attr):
     print("Listing for term:"+str(query))
@@ -73,10 +77,10 @@ def get_doc_attributes(document):
 
 def main():
     
-    print("in here..")
+    print("loading terms..")
     get_content()
-    print("loaded terms...")
-    print('Number of arguments:', len(sys.argv), 'arguments.')
+    print("DONE")
+    print('Number of arguments:', len(sys.argv))
     print('Argument List:', str(sys.argv))
     getInput(sys.argv)
     
