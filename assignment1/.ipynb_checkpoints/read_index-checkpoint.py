@@ -24,6 +24,7 @@ def get_content(file_name):
     with open(file_name, 'r') as f:
         for line in f:
             print(line) 
+            
 
 def getInput(arguments):
     if len(arguments) <= 1 :
