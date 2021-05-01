@@ -1,6 +1,7 @@
 import os
 import sys
 import ast
+from parsing import get_dictionary, get_doc
 
 # This file should contain code to receive either a document-id or 
 # word or both and output the required metrics. See the assignment 
@@ -10,20 +11,20 @@ import ast
 term_dictionary = {}
 docno_dictionary = {}
 
-def get_doc_info(file_name):
-    global docno_dictionary
-    filer = open(file_name, "r")
-    contents = filer.read()
-    docno_dictionary = ast.literal_eval(contents)
-    filer.close()
+# def get_doc_info(file_name):
+#     global docno_dictionary
+#     filer = open(file_name, "r")
+#     contents = filer.read()
+#     docno_dictionary = ast.literal_eval(contents)
+#     filer.close()
 
 
-def get_content(file_name):
+def get_content():
     global term_dictionary
-    # filer = open(file_name, "r")
-    with open(file_name, 'r') as f:
-        for line in f:
-            print(line) 
+    global docno_dictionary
+
+    term_dictionary = get_dictionary()
+    docno_dictionary = get_doc()
 
 def getInput(arguments):
     if len(arguments) <= 1 :
@@ -37,13 +38,19 @@ def getInput(arguments):
     if query_type == "--term":
         term_attr = get_term_attributes(query)
         if len(term_attr) != 0:
-            print(str(term_attr))
+            display_term_attr(query,term_attr)
     elif query_type == "--doc":
         doc_attr = get_doc_attributes(query)
         if len(doc_attr) != 0:
             display_doc_attr(query, doc_attr)
     else:
         print("Error in Input")
+
+def display_term_attr(query,term_attr):
+    print("Listing for term:"+str(query))
+    print("Number of documents containing term: "+str(len(term_attr)-1)) 
+    print("Term frequency in corpus: "+str(term_attr[len(term_attr)-1]))
+
 
 def display_doc_attr(query, doc_attr):
     print("Listing for document:"+str(query))
@@ -67,13 +74,11 @@ def get_doc_attributes(document):
 def main():
     
     print("in here..")
-    get_content("text_file.txt")
-    # print("loaded terms...")
-    # get_doc_info("doc_file.txt")
-    # print("loaded docs...")
-    # print('Number of arguments:', len(sys.argv), 'arguments.')
-    # print('Argument List:', str(sys.argv))
-    # getInput(sys.argv)
+    get_content()
+    print("loaded terms...")
+    print('Number of arguments:', len(sys.argv), 'arguments.')
+    print('Argument List:', str(sys.argv))
+    getInput(sys.argv)
     
 if __name__ == "__main__":
     main()

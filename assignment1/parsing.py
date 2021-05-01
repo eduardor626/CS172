@@ -34,89 +34,98 @@ with open('stopwords.txt') as f:
         stopwords_set.add(word)
    
 # Retrieve the names of all files to be indexed in folder ./ap89_collection_small of the current directory
-for dir_path, dir_names, file_names in os.walk("ap89_collection_small"):
-    allfiles = [os.path.join(dir_path, filename).replace("\\", "/") for filename in file_names if (filename != "readme" and filename != ".DS_Store")]
+def get_dictionary():    
+    global docno_dic
+
+    for dir_path, dir_names, file_names in os.walk("ap89_collection_small"):
+        allfiles = [os.path.join(dir_path, filename).replace("\\", "/") for filename in file_names if (filename != "readme" and filename != ".DS_Store")]
     
-x = 1
-print("Length of all files = "+str(len(allfiles)))
+    x = 1
+    print("Length of all files = "+str(len(allfiles)))
 
-for file in allfiles:
+    for file in allfiles:
 
-    print("in file number = "+str(x))
-    with open(file, 'r', encoding='ISO-8859-1') as f:
-        filedata = f.read()
-        result = re.findall(doc_regex, filedata)  # Match the <DOC> tags and fetch documents
+        print("in file number = "+str(x))
+        with open(file, 'r', encoding='ISO-8859-1') as f:
+            filedata = f.read()
+            result = re.findall(doc_regex, filedata)  # Match the <DOC> tags and fetch documents
 
-         #for every document-- get the doc# and the doc#'s text
-        print("There are  "+str(len(result))+" documents in this document")
-        for document in result[0:1]:
-            
-            # Retrieve contents of DOCNO tag
-            docno = re.findall(docno_regex, document)[0].replace("<DOCNO>", "").replace("</DOCNO>", "").strip()
-            
-            # Retrieve contents of TEXT tag
-            text = "".join(re.findall(text_regex, document))\
-                      .replace("<TEXT>", "").replace("</TEXT>", "")\
-                      .replace("\n", " ")
+             #for every document-- get the doc# and the doc#'s text
+            print("There are  "+str(len(result))+" documents in this document")
+            for document in result[0:]:
+                
+                # Retrieve contents of DOCNO tag
+                docno = re.findall(docno_regex, document)[0].replace("<DOCNO>", "").replace("</DOCNO>", "").strip()
 
-            #remove punctuation
-            text = text.translate(str.maketrans('', '', string.punctuation))
-            
-            text = text.lower() 
-            words = text.split() 
+                # Retrieve contents of TEXT tag
+                text = "".join(re.findall(text_regex, document))\
+                          .replace("<TEXT>", "").replace("</TEXT>", "")\
+                          .replace("\n", " ")
 
-            local_dic = {}
+                #remove punctuation, lowercase everything, split words up in the text
+                text = text.translate(str.maketrans('', '', string.punctuation))
+                text = text.lower() 
+                words = text.split() #maintains the order of the original text
 
-            # but first lets define how many times a word occurs and at what position
-            for i, word in enumerate(words,start=1):
-                if word in local_dic:
-                    frequency = local_dic[word][1] + 1
-                    local_dic[word][0].append(i)
-                    local_dic[word][1] = frequency
+                # create a local dictionary for the current TEXT 
+                local_dic = {}
 
-                else:
-                    local_dic[word] = [[i],1]
+                # but first lets define how many times a word occurs and at what position
+                for i, word in enumerate(words,start=1):
+                    if word in local_dic:
+                        frequency = local_dic[word][1] + 1
+                        local_dic[word][0].append(i)
+                        local_dic[word][1] = frequency
 
-            total_terms = 0
-            for term in local_dic:
-                mytuple = (docno,local_dic[term])
-                frequency_of_term = len(local_dic[term][0])
-                total_terms = total_terms + frequency_of_term
+                    else:
+                        if word not in stopwords_set:
+                            local_dic[word] = [[i],1]
 
-                if term not in word_dic:
-                    if term not in stopwords_set:
+                total_terms = 0
+
+                for term in local_dic:
+                    mytuple = (docno,local_dic[term])
+                    frequency_of_term = len(local_dic[term][0])
+                    total_terms = total_terms + frequency_of_term
+
+                    if term not in word_dic:
                         word_dic[term] = [mytuple]
-                else:
-                    word_dic[term].append(mytuple)
+                    else:
+                        word_dic[term].append(mytuple)
             
                 
-            # print("Text: "+text)
-            docno_dic[docno] = (total_terms,len(local_dic))
-            # print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
-            # print("Length of word dic at the end = "+str(len(word_dic)))
+                # print("Text: "+text)
+                docno_dic[docno] = (total_terms,len(local_dic))
+                # print("Doc#: "+docno+" total terms: "+str(total_terms)+" unique terms: "+ str(len(local_dic))) 
+                # print("Length of word dic at the end = "+str(len(word_dic)))
 
 
-            #exit(0) #testing on one document for now                    
+                #exit(0) #testing on one document for now                    
             
-    x = x + 1 #increment what file we are on
+        x = x + 1 #increment what file we are on
 
-for term in word_dic:
-    total_qty = 0
-    for tup in word_dic[term]:
-        total_qty = total_qty + tup[1][1]
-    word_dic[term].append(total_qty)
-    # print(term+'->'+str(word_dic[term]))
+    for term in word_dic:
+        total_qty = 0
+        for tup in word_dic[term]:
+            total_qty = total_qty + tup[1][1]
+        word_dic[term].append(total_qty)
+        # print(term+'->'+str(word_dic[term]))
+    return word_dic
+
+def get_doc():
+    global docno_dic
+    return docno_dic
 
     
-try:
-    text_file = open('text_file.txt', 'wt')
-    # text_file.write(str(word_dic))
-    for key in word_dic:
-        text_file.write(str(key)+":"+str(word_dic[key])+"\n")
-    text_file.close()
+    try:
+        text_file = open('text_file.txt', 'wt')
+        # text_file.write(str(word_dic))
+        for key in word_dic:
+            text_file.write(str(key)+":"+str(word_dic[key])+"\n")
+        text_file.close()
 
-    text_file_doc = open('doc_file.txt','wt')
-    text_file_doc.write(str(docno_dic))
-    text_file_doc.close()
-except:
-    print("Unable to write to file")
+        text_file_doc = open('doc_file.txt','wt')
+        text_file_doc.write(str(docno_dic))
+        text_file_doc.close()
+    except:
+        print("Unable to write to file")
