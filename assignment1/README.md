@@ -11,6 +11,11 @@ the terms in the documents and the value's are a list of tuples. These tuples co
 about the attributes of the term. 
 There is also another data structure which holds the information of each document, such as total
 number of words and unique number of words. 
+
+To run our code make sure the parsing.py and read_index.py scripts are initialized. 
+1) ./read_index.py --term <term>
+2) ./read_index.py --doc <docno>
+3) ./read_index.py --term <term> --doc <docno>
 ```
 
 Language used: 
