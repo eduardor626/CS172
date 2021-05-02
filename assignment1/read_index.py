@@ -41,7 +41,7 @@ def getInput(arguments):
         else:
             print("Error in Input")
     elif len(arguments) > 3:
-        print("Handle multiple arguments here..\n")
+        # print("Handle multiple arguments here..\n")
         query_type = []
         query_term_doc = []
         query_type.append(arguments[1])
