@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import sys
 import ast
@@ -7,17 +9,8 @@ from parsing import get_dictionary, get_doc
 # word or both and output the required metrics. See the assignment 
 # description for more detail.
 
-
 term_dictionary = {}
 docno_dictionary = {}
-
-# def get_doc_info(file_name):
-#     global docno_dictionary
-#     filer = open(file_name, "r")
-#     contents = filer.read()
-#     docno_dictionary = ast.literal_eval(contents)
-#     filer.close()
-
 
 def get_content():
     global term_dictionary
@@ -28,7 +21,7 @@ def get_content():
 
 def getInput(arguments):
     if len(arguments) <= 1 :
-        return ""
+        return "Error Invalid number of arguments."
 
     if len(arguments) <=3:
         query_type = arguments[1]
@@ -49,6 +42,29 @@ def getInput(arguments):
             print("Error in Input")
     elif len(arguments) > 3:
         print("Handle multiple arguments here..\n")
+        query_type = []
+        query_term_doc = []
+        query_type.append(arguments[1])
+        query_type.append(arguments[3])
+        query_term_doc.append(arguments[2])
+        query_term_doc.append(arguments[4])
+
+
+        
+        if "--term" in query_type and "--doc" in query_type:
+            term_attr = get_term_attributes(query_term_doc[0])
+            total_freq = term_attr.pop()
+            if len(term_attr) != 0:
+                for doc in term_attr:
+                    if doc[0] == query_term_doc[1]:
+                        display_term_doc_attr(query_term_doc[0],doc)
+                        return
+            print("Error, term not in document")
+        else:
+            print("Error in input")
+        
+    return
+
 
 def display_term_attr(query,term_attr):
     print("Listing for term:"+str(query))
@@ -60,6 +76,12 @@ def display_doc_attr(query, doc_attr):
     print("Listing for document:"+str(query))
     print("Total terms: "+str(doc_attr[0]))
     print("Distinct terms: "+str(doc_attr[1]))
+
+def display_term_doc_attr(term, doc):
+    print("Inverted list for term: ",term)
+    print("In document: ",doc[0])
+    print("Term frequency in document: ",doc[len(doc)-1][1])
+    print("Position(s): ",doc[len(doc)-1][0])
 
 
 def get_term_attributes(token):
@@ -76,12 +98,7 @@ def get_doc_attributes(document):
 
 
 def main():
-    
-    print("loading terms..")
     get_content()
-    print("DONE")
-    print('Number of arguments:', len(sys.argv))
-    print('Argument List:', str(sys.argv))
     getInput(sys.argv)
     
 if __name__ == "__main__":

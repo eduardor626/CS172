@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import re
 import os
 import zipfile
@@ -69,7 +70,6 @@ def get_dictionary():
 
                 # create a local dictionary for the current TEXT 
                 local_dic = {}
-                
 
                 # but first lets define how many times a word occurs and at what position
                 for i, word in enumerate(words,start=1):
