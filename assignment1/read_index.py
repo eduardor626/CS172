@@ -20,8 +20,10 @@ def get_content():
     docno_dictionary = get_doc()
 
 def getInput(arguments):
-    if len(arguments) <= 1 :
-        return "Error Invalid number of arguments."
+    if len(arguments) <= 2 :
+        print("Error Invalid number of arguments.")
+        return
+    get_content()    
 
     if len(arguments) <=3:
         query_type = arguments[1]
@@ -62,6 +64,8 @@ def getInput(arguments):
             print("Error, term not in document")
         else:
             print("Error in input")
+    else:
+        print("Error in Input.")
         
     return
 
@@ -98,7 +102,7 @@ def get_doc_attributes(document):
 
 
 def main():
-    get_content()
+    # get_content()
     getInput(sys.argv)
     
 if __name__ == "__main__":
