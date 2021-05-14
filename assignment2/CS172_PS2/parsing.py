@@ -24,7 +24,7 @@ docno_dic = {}
 termIndex = {}
 docIndex = {}
 
-with zipfile.ZipFile("ap89_collection_small.zip", 'r') as zip_ref:
+with zipfile.ZipFile("data/ap89_collection_small.zip", 'r') as zip_ref:
     zip_ref.extractall()
 
 # putting the stopwords into a set data structure for easy comparison

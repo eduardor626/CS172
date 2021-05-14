@@ -18,6 +18,7 @@ def get_content():
 
     term_dictionary = get_dictionary()
     docno_dictionary = get_doc()
+    return term_dictionary
 
 def getInput(arguments):
     if len(arguments) <= 2 :
