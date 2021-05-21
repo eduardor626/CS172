@@ -35,21 +35,24 @@ def get_input(arguments):
     
 
 def read_in_queries(arguments):
+    if arguments is None or len(arguments) < 2:
+        return
+
     global term_dict
 
     path = arguments[0]
-    print(path)
+    output_file = arguments[1]
     file = open(path, 'r')
     lines = file.readlines()
     term_dict = get_content()
-    print('term dict size ,',len(term_dict))
+    # print('term dict size ,',len(term_dict))
     
     for line in lines:
         query_text = sanitize(line)
         query_no = query_text.pop(0)
-        print("Q0:",query_no)
-        print("Term Vector:",query_text)
-        print('Length of Query:',len(query_text))
+        # print("Q0:",query_no)
+        # print("Term Vector:",query_text)
+        # print('Length of Query:',len(query_text))
         output_set = update_doc_terms(query_text)
 
 
@@ -59,17 +62,21 @@ def read_in_queries(arguments):
 
         output_set = sorted(output_set.items(), key=lambda x: x[1], reverse=True)
         top_10 = output_set[:10]
-        output_ranking(query_no,top_10)
+        output_ranking(query_no,top_10,output_file)
         clear()
         
     return
 
-def output_ranking(query_no, top_list):
+def output_ranking(query_no, top_list, output_file):
         i = 1
+        query_no = str(query_no) + " Q0 "
+
+        f = open(output_file,'a')
         for element in top_list:
-            print(query_no,'Q0',element[0],i,element[1],'EXP')
+            doc_vals = str(element[0]) +" "+str(i)+" "+str(element[1])+" Exp"
+            f.write(query_no+doc_vals+'\n')
             i = i + 1
-        print('\n')
+        f.close()
 
 def clear():
     global relevant_terms
@@ -80,7 +87,7 @@ def clear():
 
 def get_similarity_score(query_size,document,dot_product):
     score = dot_product/(math.sqrt(query_size)*math.sqrt(dot_product))
-    return score
+    return round(score,6)
 
 def update_doc_terms(query_terms):
     global relevant_terms
@@ -125,12 +132,6 @@ def get_term_attr(token,term_dict):
 def main():
     arguments = get_input(sys.argv)
     read_in_queries(arguments)
-    # print(relevant)
-    # term_dict = get_content()
-
-
-
-
     
 if __name__ == "__main__":
     main()
