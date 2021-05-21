@@ -113,15 +113,16 @@ def get_doc():
     return docno_dic
 
     
-    # try:
-    #     text_file = open('text_file.txt', 'wt')
-    #     # text_file.write(str(word_dic))
-    #     for key in word_dic:
-    #         text_file.write(str(key)+":"+str(word_dic[key])+"\n")
-    #     text_file.close()
+# try:
+#     text_file = open('text_file.txt', 'wt')
+#     # text_file.write(str(word_dic))
+#     print('size of word dic = ',len(word_dic))
+#     for key in word_dic:
+#         text_file.write(str(key)+":"+str(word_dic[key])+"\n")
+#     text_file.close()
 
-    #     text_file_doc = open('doc_file.txt','wt')
-    #     text_file_doc.write(str(docno_dic))
-    #     text_file_doc.close()
-    # except:
-    #     print("Unable to write to file")
+#     #     text_file_doc = open('doc_file.txt','wt')
+#     #     text_file_doc.write(str(docno_dic))
+#     #     text_file_doc.close()
+# except:
+#     print("Unable to write to file")

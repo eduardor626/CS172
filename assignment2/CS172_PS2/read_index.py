@@ -18,6 +18,7 @@ def get_content():
 
     term_dictionary = get_dictionary()
     docno_dictionary = get_doc()
+    print("dic size = ",len(term_dictionary))
     return term_dictionary
 
 def getInput(arguments):
