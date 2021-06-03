@@ -1,0 +1,24 @@
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="mortgageEx.css">
+<script src="mortgageEx.js"></script>
+</head>
+<body>
+
+<div class="smpc-div">
+<form name=mortgagecalc method=POST>
+<p>How much will you be borrowing?<br>
+<input type=text onkeypress="return validNumber(event)" name=loan size=10> <span class="smpc-error" id="loanError"></span></p>
+<p>What will be the term of this mortgage (in years)?<br>
+<input type=text onkeypress="return validNumber(event)" name=years size=5> <span class="smpc-error" id="yearsError"></span></p>
+<p>What will be the interest rate?<br>
+<input type=text onkeypress="return validNumber(event)" name=rate size=5> <span class="smpc-error" id="rateError"></span></p>
+<input type=button onClick="return myPayment()" value=Calculate>  <input type=button onClick="return myPaymentReset()" value=Reset>
+</form>
+<small>Instructions: Enter numbers and decimal points. No commas or other characters.</small>
+<p class="smpc-monthlypayment" id="monthlyPayment"> </p>
+<p class="smpc-friendlyreminder" id="friendlyReminder">This is your principal + interest payment, or in other words, what you send to the bank each month. But remember, you will also have to budget for homeowners insurance, real estate taxes, and if you are unable to afford a 20% down payment, Private Mortgage Insurance (PMI). These additional costs could increase your monthly outlay by as much 50%, sometimes more.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* START - Simple Mortage Payment Calculator */
+
+.smpc-div {
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
+  padding: 15px;
+}
+
+.smpc-error {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: #ca0000;
+}
+
+.smpc-monthlypayment {
+  margin-top: 15px;
+  font-size: 24px;
+  color: #ca0000;
+}
+
+.smpc-friendlyreminder {
+  display: none;
+}
+
+
+/* END - Simple Mortage Payment Calculator */
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<script>
+function myFunction() {
+    document.getElementById("aaa").innerHTML = "<b style='color:red'>JavaScript Demo 1</b>";  // Line 1
+    document.getElementById("demo").innerHTML = "Hello JavaScript!!!!!!!!!!!!";
+}
+</script>
+</head>
+
+<body>
+
+<h1 id="aaa">My First JavaScript</h1>
+
+<p>JavaScript can change the content of an HTML <i>element</i>.  It
+  can be done by assigning an element an <tt>id</tt> and use
+  that <tt>id</tt> to change the <i>inner content</i> of the element
+  as we can see two examples here: one changing the element by
+  a <tt>p</tt> tag and the other by an <tt>h1</tt> tag.</p>
+
+<button type="button" onclick="myFunction()">Click Me!</button>
+
+<p id="demo">This is a demonstration that will be modified by
+  JavaScript when the user clicks on the <tt>Click Me!</tt>
+  button.</p>
+
+<p>Note that we used an <tt>id</tt> to identify an element for
+  programming in JavaScript as well as controlling the style in CSS as
+  we did last time.</p>
+
+<p>In the HTML DOM object model, the <tt>document</tt> object
+  represents your web page. Within that object, we can identify
+  elements.</p>
+
+<p>You can set any value that is valid in HTML as the value
+  of <tt>innerHTML</tt> enclosed in double quotes.  If you must have a
+  quoted string inside another string, use a single quote pair inside
+  a double quote pair as it is done in Line 1 above.  Or,
+  alternatively, a double quote pair inside a single quote pair.</p>
+
+<p>Interesting question: When you click on the button, does the web
+  browser reload the entire page or does it only update those parts of
+  the page that are being affected by the JavaScript function?  How
+  would you find out? Think about it.  I will tell you my answer
+  in <tt>js3.jtml</tt> later.</p>
+
+</body>
+</html>

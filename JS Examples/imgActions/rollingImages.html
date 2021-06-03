@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+  <script language="JavaScript1.2">
+
+    var howOften = 3; // rate of rotation (in sec)
+    var current = 0; //start the counter at 0
+    var ns6 = document.getElementById&&!document.all; 
+
+    // place your images, text, etc in the array elements here
+    var items = new Array();
+      items[0]="<img alt='image0' src='images/IMG1.jpg' height='300' width='300' border='0' />"; //a linked image
+      items[1]="<img alt='image1' src='images/IMG2.jpg' height='300' width='300' border='0' />"; //a linked image
+      items[2]="<img alt='image2' src='images/IMG3.jpg' height='300' width='300' border='0'/>"; //a linked image
+      items[3]="<img alt='image3' src='images/IMG4.jpg' height='300' width='300' border='0' />"; //a linked image
+      items[4]="<img alt='image4' src='images/IMG5.jpg' height='300' width='300' border='0' />"; //a linked image
+      items[5]="<img alt='image5' src='images/IMG6.jpg' height='300' width='300' border='0' />"; //a linked image
+
+    function rotater() {
+        document.getElementById("placeholder").innerHTML = items[current];
+        current = (current==items.length-1) ? 0 : current + 1;
+        setTimeout("rotater()",howOften*1000);
+    }
+
+    function rotater() {
+        if(document.layers) {
+            document.placeholderlayer.document.write(items[current]);
+            document.placeholderlayer.document.close();
+        }
+        if(ns6)document.getElementById("placeholderdiv").innerHTML=items[current]
+            if(document.all)
+                placeholderdiv.innerHTML=items[current];
+
+        current = (current==items.length-1) ? 0 : current + 1; //increment or reset
+        setTimeout("rotater()",howOften*1000);
+    }
+    window.onload=rotater;
+    
+  </script>
+
+</head>
+</body>
+   
+  <h1> Rolling images using JS </h1>
+  <p id =placeholderdiv> example </p>
+
+
+</body>
+</html>

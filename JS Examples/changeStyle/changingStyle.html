@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="pastel.css" id =  'pastel-styles'>
+    <link rel="stylesheet" type="text/css" href="dark.css" id = 'dark-styles' disabled >
+    <script>
+    function changeStyle() {
+        // Change the style
+        document.getElementById('dark-styles').removeAttribute('disabled');
+   
+    }
+    </script>
+  </head>
+
+<body>
+
+  <h1>Changing the style of an HTML </h1>
+
+  <p id ="test">JavaScript can change the style of an HTML document 
+  </p>
+  <button type="button" onclick="changeStyle()">Click Me!</button>
+
+</body>
+</html> 
+
