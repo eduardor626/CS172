@@ -92,7 +92,7 @@ async function run() {
     console.log(count)
 }
 
-run().catch(console.log)
+// run().catch(console.log)
 
 async function read() {
     const { body } = await client.search({
@@ -103,7 +103,16 @@ async function read() {
             }
         }
     })
+    console.log('hits!!');
     console.log(body.hits.hits)
 }
-
 read().catch(console.log)
+
+// client.indices.delete({
+//     index: 'tweets',
+// }).then(function(resp) {
+//     console.log("Successful query!");
+//     console.log(JSON.stringify(resp, null, 4));
+// }, function(err) {
+//     console.trace(err.message);
+// });
