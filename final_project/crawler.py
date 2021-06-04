@@ -28,19 +28,19 @@ def crawler(seedList, pagesToCrawl):
         webPage = requests.get(urlToScrape)
         htmlContent = webPage.text
 
+        # abstract url links from html text
+        soupObject = BeautifulSoup(htmlContent, "html.parser")
+        bodyContent = soupObject.body.text
+        bodyString = (str(bodyContent)).replace('\n', '')
+
         # Create dictionary that contains html content and url
         dict = {
             "url": urlToScrape,
-            "html": htmlContent
+            "html": bodyString
         }
         with open("data.json", "a") as outfile:
             json.dump(dict, outfile)
             outfile.write('\n')
-
-        # print(htmlContent)
-
-        # abstract url links from html text
-        soupObject = BeautifulSoup(htmlContent, 'lxml')
 
         hyperlinks = soupObject.find_all('a')
 
@@ -49,13 +49,12 @@ def crawler(seedList, pagesToCrawl):
                 if(url.get('href') not in scrapedURLs):
                     URLsToBeScraped.append(url.get('href'))
 
+    print("URLs SCRAPPED: ")
     print(scrapedURLs)
-    print("URL TO BE SCRAPPED: ")
-    print(URLsToBeScraped)
 
 
 def main():
-    crawler("seedUrls.txt", 5)
+    crawler("seedUrls.txt", 6)
 
 
 if __name__ == "__main__":
