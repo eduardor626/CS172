@@ -31,7 +31,8 @@ def crawler(seedList, pagesToCrawl):
         # abstract url links from html text
         soupObject = BeautifulSoup(htmlContent, "html.parser")
         bodyContent = soupObject.body.text
-        bodyString = (str(bodyContent)).replace('\n', '')
+        bodyString = (str(bodyContent)).replace('\n', '').replace(
+            '(', "").replace(')', "").replace("`", "").replace("'", "")
 
         # Create dictionary that contains html content and url
         dict = {
@@ -54,7 +55,7 @@ def crawler(seedList, pagesToCrawl):
 
 
 def main():
-    crawler("seedUrls.txt", 6)
+    crawler("seedUrls.txt", 11)
 
 
 if __name__ == "__main__":
