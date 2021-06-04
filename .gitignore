@@ -3,3 +3,4 @@ node_modules/
 config/default.json
 final_project/frontend/config/default.json
 config/*
+/config/default.json
