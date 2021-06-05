@@ -3,8 +3,8 @@ const config = require('config');
 const elasticConfig = config.get('elastic');
 
 //currently getting errors when trying to read the data.. maybe cause its in one line?
-//let json = require('../frontend/random.json');
-
+let json = require('../frontend/random.json');
+// console.log(json);
 
 const client = new Client({
     cloud: {
@@ -37,36 +37,36 @@ const client = new Client({
 //         }
 //     }, { ignore: [400] })
 
-//     const dataset = [{
-//         id: 1,
-//         url: 'https://cen.ucr.edu/',
-//         text: 'If I fall, don\'t bring me back.',
-//         date: new Date()
-//     }, {
-//         id: 2,
-//         url: 'https://cen.ucr.edu/',
-//         text: 'Winter is coming',
-//         date: new Date()
-//     }, {
-//         id: 3,
-//         url: 'https://cen.ucr.edu/',
-//         text: 'A Lannister always pays his debts.',
-//         date: new Date()
-//     }, {
-//         id: 4,
-//         url: 'https://cen.ucr.edu/',
-//         text: 'I am the blood of the dragon.',
-//         date: new Date()
-//     }, {
-//         id: 5, // change this value to a string to see the bulk response with errors
-//         url: 'https://cen.ucr.edu/',
-//         text: 'A girl is Arya Stark of Winterfell. And I\'m going home.',
-//         date: new Date()
-//     }]
-//     console.log(typeof(dataset));
+// const dataset = [{
+//     id: 1,
+//     url: 'https://cen.ucr.edu/',
+//     text: 'If I fall, don\'t bring me back.',
+//     date: new Date()
+// }, {
+//     id: 2,
+//     url: 'https://cen.ucr.edu/',
+//     text: 'Winter is coming',
+//     date: new Date()
+// }, {
+//     id: 3,
+//     url: 'https://cen.ucr.edu/',
+//     text: 'A Lannister always pays his debts.',
+//     date: new Date()
+// }, {
+//     id: 4,
+//     url: 'https://cen.ucr.edu/',
+//     text: 'I am the blood of the dragon.',
+//     date: new Date()
+// }, {
+//     id: 5, // change this value to a string to see the bulk response with errors
+//     url: 'https://cen.ucr.edu/',
+//     text: 'A girl is Arya Stark of Winterfell. And I\'m going home.',
+//     date: new Date()
+// }]
+// console.log(typeof(dataset));
+//     dataset = json;
 
 //     const body = dataset.flatMap(doc => [{ index: { _index: 'tweets' } }, doc])
-//     console.log(typeof(body));
 
 //     const { body: bulkResponse } = await client.bulk({ refresh: true, body })
 
@@ -111,6 +111,21 @@ const client = new Client({
 //     console.log(body.hits.hits)
 // }
 // readAll().catch(console.log)
+
+
+async function readQuery(query) {
+    const { body } = await client.search({
+        index: 'tweets',
+        body: {
+            query: {
+                match: { html: query }
+            }
+        }
+    })
+    console.log('Searching for Query...' + query);
+    console.log(body.hits.hits)
+}
+readQuery('Optimized Sensing and Recovery').catch(console.log);
 
 // client.indices.delete({
 //     index: 'tweets',
