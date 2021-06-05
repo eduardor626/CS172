@@ -1,0 +1,28 @@
+.search-container {
+    border: solid 1px green;
+    height: 120px;
+}
+
+.form {
+    width: 400px;
+    margin: auto;
+    margin-top: 250px;
+    margin-left: 5px;
+}
+
+.input {
+    padding: 4px 10px;
+    border: 0;
+    font-size: 16px;
+}
+
+.search {
+    width: 40%;
+    margin-left: 5px;
+}
+
+.submit {
+    width: 70px;
+    background-color: #1c87c9;
+    color: #ffffff;
+}
