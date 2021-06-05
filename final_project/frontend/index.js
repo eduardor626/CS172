@@ -6,6 +6,7 @@ const elasticConfig = config.get('elastic');
 let json = require('../frontend/random.json');
 // console.log(json);
 
+
 const client = new Client({
     cloud: {
         id: elasticConfig.cloudID
@@ -113,19 +114,19 @@ const client = new Client({
 // readAll().catch(console.log)
 
 
-async function readQuery(query) {
-    const { body } = await client.search({
-        index: 'tweets',
-        body: {
-            query: {
-                match: { html: query }
-            }
-        }
-    })
-    console.log('Searching for Query...' + query);
-    console.log(body.hits.hits)
-}
-readQuery('Optimized Sensing and Recovery').catch(console.log);
+// async function readQuery(query) {
+//     const { body } = await client.search({
+//         index: 'tweets',
+//         body: {
+//             query: {
+//                 match: { html: query }
+//             }
+//         }
+//     })
+//     console.log('Searching for Query...' + query);
+//     console.log(body.hits.hits)
+// }
+// readQuery('Optimized Sensing and Recovery').catch(console.log);
 
 // client.indices.delete({
 //     index: 'tweets',
