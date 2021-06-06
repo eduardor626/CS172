@@ -136,3 +136,9 @@ readQuery('Symptom Monitoring Survey').catch(console.log);
 // }, function(err) {
 //     console.trace(err.message);
 // });
+
+function handle_form_submission()
+{
+  alert('Submit button pressed');
+  return false; //do not submit the form
+}
