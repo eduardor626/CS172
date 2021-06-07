@@ -99,6 +99,7 @@ async function run() {
 
     const { body: count } = await client.count({ index: 'tweets' })
     console.log(count)
+    return count;
 }
 
 // run().catch(console.log)
@@ -140,6 +141,19 @@ app.get("/name", (req, res) => {
     });
 })
 
+app.get("/delete", (req, res) => {
+    deleteAll();
+
+    res.send("500");
+
+})
+
+app.get("/create", (req, res) => {
+    run().catch(console.log).then(data => {
+        res.send(data);
+    });
+})
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
@@ -165,17 +179,21 @@ function getInputValue() {
 
 }
 
+function deleteAll() {
+    console.log('in delete all');
+    client.indices.delete({
+        index: 'tweets',
+    }).then(function(resp) {
+        console.log("Successful query!");
+        console.log(JSON.stringify(resp, null, 4));
+    }, function(err) {
+        console.trace(err.message);
+    });
 
-// client.indices.delete({
-//     index: 'tweets',
-// }).then(function(resp) {
-//     console.log("Successful query!");
-//     console.log(JSON.stringify(resp, null, 4));
-// }, function(err) {
-//     console.trace(err.message);
-// });
+}
+
 
 
 app.listen(3000, () => {
-    console.log("listening on the port!!");
+    console.log("listening on the port 3000 ");
 })
