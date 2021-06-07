@@ -23,6 +23,14 @@ const client = new Client({
 //     .then(response => console.log(response))
 //     .catch(error => console.error(error))
 
+function getInputValue() {
+    // Selecting the input element and get its value 
+    var inputVal = document.getElementById("myInput").value;
+
+    // Displaying the value
+    alert(inputVal);
+}
+
 async function run() {
     await client.indices.create({
         index: 'tweets',
@@ -111,22 +119,22 @@ async function readAll() {
     console.log('hits!!');
     console.log(body.hits.hits)
 }
-// readAll().catch(console.log)
+readAll().catch(console.log)
 
 
-async function readQuery(query) {
-    const { body } = await client.search({
-        index: 'tweets',
-        body: {
-            query: {
-                match: { html: query }
-            }
-        }
-    })
-    console.log('Searching for Query: ' + query);
-    console.log(body.hits.hits)
-}
-readQuery('Symptom Monitoring Survey').catch(console.log);
+// async function readQuery(query) {
+//     const { body } = await client.search({
+//         index: 'tweets',
+//         body: {
+//             query: {
+//                 match: { html: query }
+//             }
+//         }
+//     })
+//     console.log('Searching for Query: ' + query);
+//     console.log(body.hits.hits)
+// }
+// readQuery('Symptom Monitoring Survey').catch(console.log);
 
 // client.indices.delete({
 //     index: 'tweets',
@@ -137,8 +145,7 @@ readQuery('Symptom Monitoring Survey').catch(console.log);
 //     console.trace(err.message);
 // });
 
-function handle_form_submission()
-{
-  alert('Submit button pressed');
-  return false; //do not submit the form
+function handle_form_submission() {
+    alert('Submit button pressed');
+    return false; //do not submit the form
 }
