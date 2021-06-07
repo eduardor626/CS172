@@ -2,11 +2,6 @@ const { Client } = require('@elastic/elasticsearch')
 const config = require('config');
 const elasticConfig = config.get('elastic');
 
-//currently getting errors when trying to read the data.. maybe cause its in one line?
-let json = require('../data.json');
-// console.log(json);
-
-
 const client = new Client({
     cloud: {
         id: elasticConfig.cloudID
@@ -18,18 +13,14 @@ const client = new Client({
     node: 'http://localhost:9200'
 })
 
+//currently getting errors when trying to read the data.. maybe cause its in one line?
+let json = require('../data.json');
+// console.log(json);
 
 // client.info()
 //     .then(response => console.log(response))
 //     .catch(error => console.error(error))
 
-function getInputValue() {
-    // Selecting the input element and get its value 
-    var inputVal = document.getElementById("myInput").value;
-
-    // Displaying the value
-    alert(inputVal);
-}
 
 async function run() {
     await client.indices.create({
@@ -119,21 +110,35 @@ async function readAll() {
     console.log('hits!!');
     console.log(body.hits.hits)
 }
-readAll().catch(console.log)
+// readAll().catch(console.log)
 
 
-// async function readQuery(query) {
-//     const { body } = await client.search({
-//         index: 'tweets',
-//         body: {
-//             query: {
-//                 match: { html: query }
-//             }
-//         }
-//     })
-//     console.log('Searching for Query: ' + query);
-//     console.log(body.hits.hits)
-// }
+async function readQuery(query) {
+    const { body } = await client.search({
+        index: 'tweets',
+        body: {
+            query: {
+                match: { html: query }
+            }
+        }
+    })
+    console.log('Searching for Query: ' + query);
+    console.log(body.hits.hits)
+}
+
+
+function getInputValue() {
+    // Selecting the input element and get its value 
+    let inputVal = document.getElementById("myInput").value;
+
+    // Displaying the value
+    alert(inputVal);
+    readQuery(inputVal).catch(console.log);
+    alert(readQuery(inputVal).catch(console.log))
+    console.log('success');
+
+}
+
 // readQuery('Symptom Monitoring Survey').catch(console.log);
 
 // client.indices.delete({
@@ -144,8 +149,3 @@ readAll().catch(console.log)
 // }, function(err) {
 //     console.trace(err.message);
 // });
-
-function handle_form_submission() {
-    alert('Submit button pressed');
-    return false; //do not submit the form
-}
