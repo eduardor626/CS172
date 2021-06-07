@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+arrayOfJSONobjects = []
 
 
 def crawler(seedList, pagesToCrawl):
@@ -14,6 +15,7 @@ def crawler(seedList, pagesToCrawl):
     for element in seedUrlsFromFile:
         URLsToBeScraped.append(element.strip())
     print(URLsToBeScraped)
+    docID = 1
 
     # Create loop to go over links inside URlsToBeScraped
     while(pagesToCrawl > 0):
@@ -25,7 +27,7 @@ def crawler(seedList, pagesToCrawl):
             scrapedURLs.append(urlToScrape)
         else:
             continue
-        webPage = requests.get(urlToScrape)
+        webPage = requests.get(urlToScrape, timeout=50000)
         htmlContent = webPage.text
 
         # abstract url links from html text
@@ -36,12 +38,16 @@ def crawler(seedList, pagesToCrawl):
 
         # Create dictionary that contains html content and url
         dict = {
+            "id": docID,
             "url": urlToScrape,
             "html": bodyString
         }
-        with open("data.json", "a") as outfile:
-            json.dump(dict, outfile)
-            outfile.write('\n')
+        docID += 1
+        # with open("data.json", "a") as outfile:
+        json.dumps(dict)
+        # outfile.write('\n')
+        arrayOfJSONobjects.append(json.dumps(dict))
+        crawledDataFile = open('data.json', 'w')
 
         hyperlinks = soupObject.find_all('a')
 
@@ -49,7 +55,13 @@ def crawler(seedList, pagesToCrawl):
             if("http" in (url.get('href'))):
                 if(url.get('href') not in scrapedURLs):
                     URLsToBeScraped.append(url.get('href'))
+    crawledDataFile = open('data.json', 'w')
 
+    arrayString = str(arrayOfJSONobjects).replace(
+        "'", "").replace("\\\\", "\\")
+
+    crawledDataFile.write(arrayString)
+    crawledDataFile.close()
     print("URLs SCRAPPED: ")
     print(scrapedURLs)
 
