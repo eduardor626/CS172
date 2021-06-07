@@ -1,4 +1,8 @@
 const { Client } = require('@elastic/elasticsearch')
+const express = require('express');
+const app = express();
+
+
 const config = require('config');
 const elasticConfig = config.get('elastic');
 
@@ -12,6 +16,7 @@ const client = new Client({
     },
     node: 'http://localhost:9200'
 })
+
 
 //currently getting errors when trying to read the data.. maybe cause its in one line?
 let json = require('../data.json');
@@ -109,8 +114,9 @@ async function readAll() {
     })
     console.log('hits!!');
     console.log(body.hits.hits)
+    return body.hits.hits;
+
 }
-// readAll().catch(console.log)
 
 
 async function readQuery(query) {
@@ -124,8 +130,28 @@ async function readQuery(query) {
     })
     console.log('Searching for Query: ' + query);
     console.log(body.hits.hits)
+    return body.hits.hits;
 }
+// readQuery('Symptom Monitoring Survey').catch(console.log);
 
+app.get("/name", (req, res) => {
+    readAll().catch(console.log).then(data => {
+        res.send(data);
+    });
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+})
+
+//how we 
+app.get('/user.js', (req, res) => {
+    res.sendFile(__dirname + '/user.js');
+})
+
+app.get('/style.css', (req, res) => {
+    res.sendFile(__dirname + '/style.css');
+})
 
 function getInputValue() {
     // Selecting the input element and get its value 
@@ -139,7 +165,6 @@ function getInputValue() {
 
 }
 
-// readQuery('Symptom Monitoring Survey').catch(console.log);
 
 // client.indices.delete({
 //     index: 'tweets',
@@ -149,3 +174,8 @@ function getInputValue() {
 // }, function(err) {
 //     console.trace(err.message);
 // });
+
+
+app.listen(3000, () => {
+    console.log("listening on the port!!");
+})
