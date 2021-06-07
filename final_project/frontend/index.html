@@ -2,18 +2,20 @@
 <html>
 
 <head>
-
     <link rel="stylesheet" href="style.css">
     <title>Web Crawler/Search Engine</title>
     <script type="text/javascript" src="../data.json"></script>
-    <script src="main.js"></script>
-
+    <script src="index.js"></script>
 </head>
 
 <body>
+
     <div class="search-container">
         <h2>Web Crawler/Search Engine</h2>
-        <p>The content of the document......</p>
+        <form action="/form/submit" method="GET">
+            <input type="text" name="text" class="search" placeholder="Search here!">
+            <input type="submit" name="submit" class="submit" value="Search">
+        </form>
     </div>
 
 </body>
