@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import time
 arrayOfJSONobjects = []
 
 
@@ -28,6 +29,7 @@ def crawler(seedList, pagesToCrawl):
         else:
             continue
         webPage = requests.get(urlToScrape, timeout=50000)
+        time.sleep(5)
         htmlContent = webPage.text
 
         # abstract url links from html text
@@ -47,7 +49,7 @@ def crawler(seedList, pagesToCrawl):
         json.dumps(dict)
         # outfile.write('\n')
         arrayOfJSONobjects.append(json.dumps(dict))
-        crawledDataFile = open('data.json', 'w')
+        crawledDataFile = open('scrapedData.json', 'w')
 
         hyperlinks = soupObject.find_all('a')
 
@@ -55,7 +57,7 @@ def crawler(seedList, pagesToCrawl):
             if("http" in (url.get('href'))):
                 if(url.get('href') not in scrapedURLs):
                     URLsToBeScraped.append(url.get('href'))
-    crawledDataFile = open('data.json', 'w')
+    crawledDataFile = open('scrapedData.json', 'w')
 
     arrayString = str(arrayOfJSONobjects).replace(
         "'", "").replace("\\\\", "\\")
