@@ -121,6 +121,7 @@ async function readAll() {
 
 
 async function readQuery(query) {
+    console.log('in read query');
     const { body } = await client.search({
         index: 'tweets',
         body: {
@@ -140,6 +141,8 @@ app.get("/name", (req, res) => {
         res.send(data);
     });
 })
+
+
 
 app.get("/delete", (req, res) => {
     deleteAll();
@@ -167,16 +170,22 @@ app.get('/style.css', (req, res) => {
     res.sendFile(__dirname + '/style.css');
 })
 
+app.get("/search/:query", (req, res) => {
+    var query = req.params.query;
+    console.log(query);
+    readQuery(query).catch(console.log).then(data => {
+        res.send(data);
+    })
+})
+
+
 function getInputValue() {
+    console.log('in here!!');
     // Selecting the input element and get its value 
     let inputVal = document.getElementById("myInput").value;
-
     // Displaying the value
     alert(inputVal);
-    readQuery(inputVal).catch(console.log);
-    alert(readQuery(inputVal).catch(console.log))
-    console.log('success');
-
+    return readQuery(inputVal).catch(console.log);
 }
 
 function deleteAll() {
