@@ -1,11 +1,10 @@
 const { Client } = require('@elastic/elasticsearch')
+const express = require('express');
+const app = express();
+
+
 const config = require('config');
 const elasticConfig = config.get('elastic');
-
-//currently getting errors when trying to read the data.. maybe cause its in one line?
-let json = require('../data.json');
-// console.log(json);
-
 
 const client = new Client({
     cloud: {
@@ -19,9 +18,14 @@ const client = new Client({
 })
 
 
+//currently getting errors when trying to read the data.. maybe cause its in one line?
+let json = require('../data.json');
+// console.log(json);
+
 // client.info()
 //     .then(response => console.log(response))
 //     .catch(error => console.error(error))
+
 
 async function run() {
     await client.indices.create({
@@ -95,6 +99,7 @@ async function run() {
 
     const { body: count } = await client.count({ index: 'tweets' })
     console.log(count)
+    return count;
 }
 
 // run().catch(console.log)
@@ -110,11 +115,13 @@ async function readAll() {
     })
     console.log('hits!!');
     console.log(body.hits.hits)
+    return body.hits.hits;
+
 }
-// readAll().catch(console.log)
 
 
 async function readQuery(query) {
+    console.log('in read query');
     const { body } = await client.search({
         index: 'tweets',
         body: {
@@ -125,14 +132,77 @@ async function readQuery(query) {
     })
     console.log('Searching for Query: ' + query);
     console.log(body.hits.hits)
+    return body.hits.hits;
 }
-readQuery('Symptom Monitoring Survey').catch(console.log);
+// readQuery('Symptom Monitoring Survey').catch(console.log);
 
-// client.indices.delete({
-//     index: 'tweets',
-// }).then(function(resp) {
-//     console.log("Successful query!");
-//     console.log(JSON.stringify(resp, null, 4));
-// }, function(err) {
-//     console.trace(err.message);
-// });
+app.get("/name", (req, res) => {
+    readAll().catch(console.log).then(data => {
+        res.send(data);
+    });
+})
+
+
+
+app.get("/delete", (req, res) => {
+    deleteAll();
+
+    res.send("500");
+
+})
+
+app.get("/create", (req, res) => {
+    run().catch(console.log).then(data => {
+        res.send(data);
+    });
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+})
+
+//how we 
+app.get('/user.js', (req, res) => {
+    res.sendFile(__dirname + '/user.js');
+})
+
+app.get('/style.css', (req, res) => {
+    res.sendFile(__dirname + '/style.css');
+})
+
+app.get("/search/:query", (req, res) => {
+    var query = req.params.query;
+    console.log(query);
+    readQuery(query).catch(console.log).then(data => {
+        res.send(data);
+    })
+})
+
+
+function getInputValue() {
+    console.log('in here!!');
+    // Selecting the input element and get its value 
+    let inputVal = document.getElementById("myInput").value;
+    // Displaying the value
+    alert(inputVal);
+    return readQuery(inputVal).catch(console.log);
+}
+
+function deleteAll() {
+    console.log('in delete all');
+    client.indices.delete({
+        index: 'tweets',
+    }).then(function(resp) {
+        console.log("Successful query!");
+        console.log(JSON.stringify(resp, null, 4));
+    }, function(err) {
+        console.trace(err.message);
+    });
+
+}
+
+
+
+app.listen(3000, () => {
+    console.log("listening on the port 3000 ");
+})
