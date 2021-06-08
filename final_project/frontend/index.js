@@ -19,7 +19,7 @@ const client = new Client({
 
 
 //currently getting errors when trying to read the data.. maybe cause its in one line?
-let json = require('../data.json');
+let json = require('../scrapedData.json');
 // console.log(json);
 
 // client.info()
