@@ -20,25 +20,42 @@ def crawler(seedList, pagesToCrawl):
 
     # Create loop to go over links inside URlsToBeScraped
     while(pagesToCrawl > 0):
+        print(docID)
         pagesToCrawl -= 1
         # Dequeue URL
-        urlToScrape = URLsToBeScraped[0]
-        URLsToBeScraped.pop(0)
+        urlToScrape = URLsToBeScraped.pop(0)
         if(urlToScrape not in scrapedURLs):
-            scrapedURLs.append(urlToScrape)
+            # if (urlToScrape.endswith('/')):
+            #print("Adding URL: " + urlToScrape)
+            # scrapedURLs.append(urlToScrape)
+            # print(scrapedURLs)
+            # print("\n")
+            if(urlToScrape.endswith('/') == False):
+                #print("Adding URL: " + urlToScrape)
+                urlToScrape = urlToScrape + '/'
+                # print(scrapedURLs)
+                # print("\n")
         else:
+            #print("Url is already inside of scrapedUrls " + urlToScrape)
             continue
-        webPage = requests.get(urlToScrape, timeout=50000)
-        time.sleep(5)
+        try:
+            webPage = requests.get(urlToScrape, timeout=50000)
+        except:
+            continue
+        # time.sleep(1)
         htmlContent = webPage.text
 
         # abstract url links from html text
         soupObject = BeautifulSoup(htmlContent, "html.parser")
-        bodyContent = soupObject.body.text
+        try:
+            bodyContent = soupObject.body.text
+        except:
+            continue
         bodyString = (str(bodyContent)).replace('\n', '').replace(
             '(', "").replace(')', "").replace("`", "").replace("'", "")
 
         # Create dictionary that contains html content and url
+        # print(urlToScrape)
         dict = {
             "id": docID,
             "url": urlToScrape,
@@ -51,12 +68,21 @@ def crawler(seedList, pagesToCrawl):
         arrayOfJSONobjects.append(json.dumps(dict))
         crawledDataFile = open('scrapedData.json', 'w')
 
-        hyperlinks = soupObject.find_all('a')
+        hyperlinks = soupObject.find_all("a", {'href': True})
 
         for url in hyperlinks:
-            if("http" in (url.get('href'))):
-                if(url.get('href') not in scrapedURLs):
-                    URLsToBeScraped.append(url.get('href'))
+            # print(url)
+            urlInquestion = url.get('href').strip()
+            if(urlInquestion.endswith('/') == False):
+                urlInquestion = urlInquestion + '/'
+            if("https" in urlInquestion):
+                if(urlInquestion not in URLsToBeScraped):
+                    if(urlInquestion not in scrapedURLs):
+                        if("campusstore.ucr.edu" not in urlInquestion):
+                            URLsToBeScraped.append(urlInquestion)
+
+        scrapedURLs.append(urlToScrape)
+
     crawledDataFile = open('scrapedData.json', 'w')
 
     arrayString = str(arrayOfJSONobjects).replace(
@@ -69,7 +95,7 @@ def crawler(seedList, pagesToCrawl):
 
 
 def main():
-    crawler("seedUrls.txt", 11)
+    crawler("seedUrls.txt", 1112)
 
 
 if __name__ == "__main__":
