@@ -19,8 +19,8 @@ const client = new Client({
 
 
 //currently getting errors when trying to read the data.. maybe cause its in one line?
-let json = require('../scrapedData.json');
-// console.log(json);
+var json = require('../scrapedData.json');
+const dataset = json
 
 // client.info()
 //     .then(response => console.log(response))
@@ -29,7 +29,7 @@ let json = require('../scrapedData.json');
 
 async function run() {
     await client.indices.create({
-        index: 'tweets',
+        index: 'test',
         body: {
             mappings: {
                 properties: {
@@ -42,36 +42,10 @@ async function run() {
         }
     }, { ignore: [400] })
 
-    // const dataset = [{
-    //     id: 1,
-    //     url: 'https://cen.ucr.edu/',
-    //     text: 'If I fall, don\'t bring me back.',
-    //     date: new Date()
-    // }, {
-    //     id: 2,
-    //     url: 'https://cen.ucr.edu/',
-    //     text: 'Winter is coming',
-    //     date: new Date()
-    // }, {
-    //     id: 3,
-    //     url: 'https://cen.ucr.edu/',
-    //     text: 'A Lannister always pays his debts.',
-    //     date: new Date()
-    // }, {
-    //     id: 4,
-    //     url: 'https://cen.ucr.edu/',
-    //     text: 'I am the blood of the dragon.',
-    //     date: new Date()
-    // }, {
-    //     id: 5, // change this value to a string to see the bulk response with errors
-    //     url: 'https://cen.ucr.edu/',
-    //     text: 'A girl is Arya Stark of Winterfell. And I\'m going home.',
-    //     date: new Date()
-    // }]
-    // console.log(typeof(dataset));
-    dataset = json;
+    // var dataset = json;
+    // console.log(dataset);
 
-    const body = dataset.flatMap(doc => [{ index: { _index: 'tweets' } }, doc])
+    const body = dataset.flatMap(doc => [{ index: { _index: 'test' } }, doc])
 
     const { body: bulkResponse } = await client.bulk({ refresh: true, body })
 
@@ -97,16 +71,35 @@ async function run() {
         console.log(erroredDocuments)
     }
 
-    const { body: count } = await client.count({ index: 'tweets' })
+
+    const { body: count } = await client.count({ index: 'test' })
+
     console.log(count)
-    return count;
+    console.log(body);
+    // return cluster.hits.hits;
+    return body;
+}
+
+async function getBody() {
+    // const body = dataset.flatMap(doc => [{ index: { _index: 'test' } }, doc])
+    const { body: me } = await client.search({
+        index: 'test',
+        body: {
+            query: {
+                match_all: {}
+            }
+        }
+    })
+    console.log(me.hits.hits);
+    return me.hits.hits;
 }
 
 // run().catch(console.log)
 
 async function readAll() {
+    console.log('reading from cluster')
     const { body } = await client.search({
-        index: 'tweets',
+        index: 'test',
         body: {
             query: {
                 match_all: {}
@@ -119,11 +112,13 @@ async function readAll() {
 
 }
 
+readAll().catch(console.log);
+
 
 async function readQuery(query) {
     console.log('in read query');
     const { body } = await client.search({
-        index: 'tweets',
+        index: 'test',
         body: {
             query: {
                 match: { html: query }
@@ -147,14 +142,23 @@ app.get("/name", (req, res) => {
 app.get("/delete", (req, res) => {
     deleteAll();
 
-    res.send("500");
+    res.redirect("/");
 
 })
 
 app.get("/create", (req, res) => {
+    console.log('inside data function');
     run().catch(console.log).then(data => {
         res.send(data);
     });
+})
+
+
+app.get('/getAll', (req, res) => {
+    getBody().catch(console.log).then(data => {
+        res.send(data);
+    });
+
 })
 
 app.get('/', (req, res) => {
@@ -179,19 +183,19 @@ app.get("/search/:query", (req, res) => {
 })
 
 
-function getInputValue() {
-    console.log('in here!!');
-    // Selecting the input element and get its value 
-    let inputVal = document.getElementById("myInput").value;
-    // Displaying the value
-    alert(inputVal);
-    return readQuery(inputVal).catch(console.log);
-}
+// function getInputValue() {
+//     console.log('in here!!');
+//     // Selecting the input element and get its value 
+//     let inputVal = document.getElementById("myInput").value;
+//     // Displaying the value
+//     alert(inputVal);
+//     return readQuery(inputVal).catch(console.log);
+// }
 
 function deleteAll() {
     console.log('in delete all');
     client.indices.delete({
-        index: 'tweets',
+        index: 'test',
     }).then(function(resp) {
         console.log("Successful query!");
         console.log(JSON.stringify(resp, null, 4));
@@ -200,7 +204,6 @@ function deleteAll() {
     });
 
 }
-
 
 
 app.listen(3000, () => {
