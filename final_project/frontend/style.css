@@ -3,6 +3,29 @@
     height: 120px;
 }
 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 25px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+ 
+
 .form {
     width: 400px;
     margin: auto;
