@@ -17,22 +17,33 @@ Instructions on how to deploy the system. Ideally, you should include an indexer
 
 
 ## Part 3 - Extension
-Detailed description of your ‘extension’ and motivation or benefit of the implemented feature or extension. 
+For our extenstions we used a web-based Interface where in the interface includes a textbox and a search button. For our Interface, 
 
 
 The Cluster gets created: 
-![image](https://user-images.githubusercontent.com/43709736/121450775-342f9680-c951-11eb-8d8e-b8a15e046b96.png)
+
+![image](https://user-images.githubusercontent.com/43709736/121603028-04d66380-c9fd-11eb-8e27-71ca9a9ef9d1.png)
+
+![image](https://user-images.githubusercontent.com/43709736/121603111-233c5f00-c9fd-11eb-9c2f-e9a2b9072c2d.png)
 
 As we search for lets say UCR, the urls will appear: 
-![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
+![image](https://user-images.githubusercontent.com/43709736/121603224-48c96880-c9fd-11eb-87d1-8b48ee40aefa.png)
 
 Table can be delete: 
-![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
+
+![image](https://user-images.githubusercontent.com/43709736/121603270-5a127500-c9fd-11eb-8cec-712aaa424901.png)
 
 ### Instructions to run server 
 1. Type `npm install` to install the dependencies 
 2. Type `npm run start` or `npm start` to start the server
 3. Server should be running on http:localhost:3000
+
+### Additional Instructions 
+Make a new folder name `config` in the frontend folder, you can use this command line `mkdir config`. Inside of the folder make a file name `default.json`. In the `json` folder include this specifically in `default.json` file: 
+![image](https://user-images.githubusercontent.com/43709736/121604304-1caee700-c9ff-11eb-8037-fbe52ffbac98.png).
+
+Then go to Elastic Cloud, click on create deployment, select elastic stack, give your deployment a name, save your deployment and then copy down the information udner Cloud ID. Include your information of the deployment name the person created and there password. 
+ 
 
 ## Authors and Contributor List:
 
