@@ -21,6 +21,8 @@ Detailed description of your ‘extension’ and motivation or benefit of the im
 
 
 The Cluster gets created: 
+![image](https://user-images.githubusercontent.com/43709736/121603028-04d66380-c9fd-11eb-8e27-71ca9a9ef9d1.png)
+
 ![image](https://user-images.githubusercontent.com/43709736/121450775-342f9680-c951-11eb-8d8e-b8a15e046b96.png)
 
 As we search for lets say UCR, the urls will appear: 
