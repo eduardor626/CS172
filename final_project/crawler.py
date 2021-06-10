@@ -2,10 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import time
+import ast
+import os
+import sys
 arrayOfJSONobjects = []
 
 
-def crawler(seedList, pagesToCrawl):
+def crawler(seedList, pagesToCrawl, outputDir):
     scrapedURLs = []
     URLsToBeScraped = []
     # Read in from list of URL from text file
@@ -66,7 +69,7 @@ def crawler(seedList, pagesToCrawl):
         json.dumps(dict)
         # outfile.write('\n')
         arrayOfJSONobjects.append(json.dumps(dict))
-        crawledDataFile = open('scrapedData.json', 'w')
+        crawledDataFile = open(outputDir, 'w')
 
         hyperlinks = soupObject.find_all("a", {'href': True})
 
@@ -83,7 +86,7 @@ def crawler(seedList, pagesToCrawl):
 
         scrapedURLs.append(urlToScrape)
 
-    crawledDataFile = open('scrapedData.json', 'w')
+    crawledDataFile = open(outputDir, 'w')
 
     arrayString = str(arrayOfJSONobjects).replace(
         "'", "").replace("\\\\", "\\")
@@ -95,7 +98,11 @@ def crawler(seedList, pagesToCrawl):
 
 
 def main():
-    crawler("seedUrls.txt", 1112)
+    args = sys.argv[1:]
+    # print(args[0])
+    # print(args[1])
+    # print(args[2])
+    crawler(args[0], int(args[1]), args[2])
 
 
 if __name__ == "__main__":
