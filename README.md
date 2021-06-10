@@ -1,8 +1,5 @@
 # CS172
 
-The report should include:
-
-Collaboration Details: Description of contribution of each team member.
 ## Part 1 - Crawler
 ### (a) Architecture
 We have created a single threaded crawler. There's two seperate arrays that keep track of the URLs that have been crawled and those that haven't. The crawler will take a URL from the front of the array and determine if it is a valid URL to crawl.
@@ -17,5 +14,19 @@ The crawler expects 3 command line inputs. First is the file containing seed URL
 Sample call to the crawler: `python3 .\crawler.py seedUrls.txt 6 sd1.json`
 ## Part 2 - Indexer
 Instructions on how to deploy the system. Ideally, you should include an indexer.bat (Windows) or indexer.sh (Unix/Linux) executable file that takes as input all necessary parameters .  Example: [user@server] ./indexer.sh < output − dir >
+
+
 ## Part 3 - Extension
 Detailed description of your ‘extension’ and motivation or benefit of the implemented feature or extension. Include screen shots of your system in action.
+
+
+The Cluster gets created: 
+![image](https://user-images.githubusercontent.com/43709736/121450775-342f9680-c951-11eb-8d8e-b8a15e046b96.png)
+
+As we search for lets say UCR, the urls will appear: 
+![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
+
+Then we can delete the table that we have: 
+![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
+
+
