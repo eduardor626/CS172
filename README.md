@@ -17,7 +17,7 @@ Instructions on how to deploy the system. Ideally, you should include an indexer
 
 
 ## Part 3 - Extension
-Detailed description of your ‘extension’ and motivation or benefit of the implemented feature or extension. Include screen shots of your system in action.
+Detailed description of your ‘extension’ and motivation or benefit of the implemented feature or extension. 
 
 
 The Cluster gets created: 
@@ -26,7 +26,7 @@ The Cluster gets created:
 As we search for lets say UCR, the urls will appear: 
 ![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
 
-Then we can delete the table that we have: 
+Table can be delete: 
 ![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
 
 
