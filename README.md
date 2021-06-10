@@ -39,7 +39,8 @@ Table can be delete:
 3. Server should be running on http:localhost:3000
 
 ### Additional Instructions 
-Make a new folder name `config` in the frontend folder, you can use this command line `mkdir config`. Inside of the folder make a file name `default.json`. In the `json` folder include this specifically in `default.json` file: ![image](https://user-images.githubusercontent.com/43709736/121604304-1caee700-c9ff-11eb-8037-fbe52ffbac98.png).
+Make a new folder name `config` in the frontend folder, you can use this command line `mkdir config`. Inside of the folder make a file name `default.json`. In the `json` folder include this specifically in `default.json` file: 
+![image](https://user-images.githubusercontent.com/43709736/121604304-1caee700-c9ff-11eb-8037-fbe52ffbac98.png).
 
 Then go to Elastic Cloud, click on create deployment, select elastic stack, give your deployment a name, save your deployment and then copy down the information udner Cloud ID. Include your information of the deployment name the person created and there password. 
  
