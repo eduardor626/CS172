@@ -1,7 +1,7 @@
 # CS172
 
 ## Part 1 - Crawler
-Overview of system, including (but not limited to)
+Overview of system, 
 (a) Architecture
 Our Architecture of the system reads in a file of seed of URLs and we crawl the .edu pages. 
 We make the crawler so its able to crawl these different ypes of .edu pages. 
