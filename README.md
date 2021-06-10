@@ -18,3 +18,4 @@ Instructions on how to deploy the system. Ideally, you should include an indexer
 
 ## Part 3 - Extension
 Detailed description of your ‘extension’ and motivation or benefit of the implemented feature or extension. Include screen shots of your system in action.
+![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
