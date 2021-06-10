@@ -30,9 +30,15 @@ Table can be delete:
 ![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
 
 ### Instructions to run server 
-```1. npm install``` 
-   to install the dependencies 
-```2. npm run start or npm start``` 
-   to start the server
+1. Type `npm install` to install the dependencies 
+2. Type `npm run start` or `npm start` to start the server
+3. Server should be running on http:localhost:3000
+
+## Authors and Contributor List:
+
+* Eduardo Rocha - https://github.com/eduardor626
+* Arturo Alvarado - https://github.com/alvaradoarturo
+* Sameh Fazli - https://github.com/sfazli96
+
 
 
