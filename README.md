@@ -27,10 +27,10 @@ The Cluster gets created:
 ![image](https://user-images.githubusercontent.com/43709736/121603111-233c5f00-c9fd-11eb-9c2f-e9a2b9072c2d.png)
 
 As we search for lets say UCR, the urls will appear: 
-![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
+![image](https://user-images.githubusercontent.com/43709736/121603224-48c96880-c9fd-11eb-87d1-8b48ee40aefa.png)
 
 Table can be delete: 
-![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
+![image](https://user-images.githubusercontent.com/43709736/121603270-5a127500-c9fd-11eb-8cec-712aaa424901.png)
 
 ### Instructions to run server 
 1. Type `npm install` to install the dependencies 
