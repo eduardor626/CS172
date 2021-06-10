@@ -29,4 +29,8 @@ As we search for lets say UCR, the urls will appear:
 Table can be delete: 
 ![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
 
+### Instructions to run server 
+```1. npm install``` to install the dependencies 
+```2. npm run start or npm start``` to start the server
+
 
