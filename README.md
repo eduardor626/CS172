@@ -34,8 +34,8 @@ Table can be delete:
 ![image](https://user-images.githubusercontent.com/43709736/121603270-5a127500-c9fd-11eb-8cec-712aaa424901.png)
 
 ### Instructions to run server 
-1. Type `npm install` to install the dependencies 
-2. Type `npm run start` or `npm start` to start the server
+1. Type `npm install` to install the dependencies in the frontend folder 
+2. Type `npm run start` or `npm start` to start the server in the frontend folder
 3. Server should be running on http:localhost:3000
 
 ### Additional Instructions 
