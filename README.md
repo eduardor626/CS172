@@ -1,16 +1,17 @@
 # CS172
 
 ## Part 1 - Crawler
-Overview of system, 
-(a) Architecture
-Our Architecture of the system reads in a file of seed of URLs and we crawl the .edu pages. 
-We make the crawler so its able to crawl these different ypes of .edu pages. 
-In our application it also shows the number of pages that we crawl to and what the levels are. All the crawled page that we crawled gets stored in a folder. 
-
-(b) The Crawling or data collection strategy (do you handle duplicate URLs, is your crawler parallel, etc.)
-For our crawler we are able to handle the duplicate urls. 
-(c) Data Structures employed
-Instruction on how to deploy the crawler. Ideally, you should include a crawler.bat (Windows) or crawler.sh (Unix/Linux) executable file that takes as input all necessary parameters. Example instructions for Web-based assignment: [user@server]./crawler.sh < seed − Fileseed.txt > < num − pages : 10000 > < hops − away : 6 > <output−dir >
+### (a) Architecture
+We have created a single threaded crawler. There's two seperate arrays that keep track of the URLs that have been crawled and those that haven't. The crawler will take a URL from the front of the array and determine if it is a valid URL to crawl.
+### (b) The Crawling or data collection strategy 
+We feed in a list of seed URLs to populate the initial array. The crawler will then pop the front of the array and determine if this URL has been scraped or not by checking if it is inside of the array containing all scraped URLs. This is how we prevent duplicate URLs. If it hasn't been scraped, then a request gets sent using the `requests` library. This will return the entire web page. Having this we can eliminate all `html` tags and only obtain the text from the web page. We then use this text to create a `BeautifulSoup` object that will be used to parse the contents of the page. We can then use this `BeautifulSoup` object to find all URL links inside of the page. Before adding them to the array of URLs to scrape, we first check whether or not it has been scraped, and whether or not it is in the array of URLs to be scraped. Once the entire URL has been scraped, we then use `json.dumps` to create objects containing the url, and all of the content found on that page. 
+### (c) Data Structures employed
+Throughout the program two arrays are used to keep track of URLs that have been scraped and those that are waiting to be scraped. 
+### (d) Limitations (if any) of the system.
+The max number of URLs that can be scrapped is approximately 1112. Once it reaches the 1113 URL, a bug causes the program to hang.
+### (e) Instruction on how to deploy the crawler. 
+The crawler expects 3 command line inputs. First is the file containing seed URLs. Second input is the number of pages to crawl. Third input is the output file we wish the program to write to. Format is as follows `python3 ./crawler.py < seed − Fileseed.txt > < num − pages : <1112 > <output−file >`.
+Sample call to the crawler: `python3 .\crawler.py seedUrls.txt 6 sd1.json`
 ## Part 2 - Indexer
 Instructions on how to deploy the system. Ideally, you should include an indexer.bat (Windows) or indexer.sh (Unix/Linux) executable file that takes as input all necessary parameters .  Example: [user@server] ./indexer.sh < output − dir >
 
