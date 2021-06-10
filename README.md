@@ -21,12 +21,12 @@ Detailed description of your ‘extension’ and motivation or benefit of the im
 
 
 The Cluster gets created: 
-![image](https://user-images.githubusercontent.com/43709736/121450775-342f9680-c951-11eb-8d8e-b8a15e046b96.jpg)
+![image](https://user-images.githubusercontent.com/43709736/121450775-342f9680-c951-11eb-8d8e-b8a15e046b96.png)
 
 As we search for lets say UCR, the urls will appear: 
-![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.jpg)
+![image](https://user-images.githubusercontent.com/43709736/121450557-d56a1d00-c950-11eb-8564-1f9d3d74cc9c.png)
 
 Table can be delete: 
-![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.jpg)
+![image](https://user-images.githubusercontent.com/43709736/121450931-79ec5f00-c951-11eb-9f35-ee8a5cca98f0.png)
 
 
