@@ -3,7 +3,10 @@
 ## Part 1 - Crawler
 Overview of system, including (but not limited to)
 (a) Architecture
-Our Architecture of the system reads in a file of seed of URLs and we crawl the .edu pages. We make the crawler so its able to crawl these different ypes of .edu pages. In our application it also shows the number of pages that we crawl to and what the levels are. All the crawled page that we crawled gets stored in a folder. 
+Our Architecture of the system reads in a file of seed of URLs and we crawl the .edu pages. 
+We make the crawler so its able to crawl these different ypes of .edu pages. 
+In our application it also shows the number of pages that we crawl to and what the levels are. All the crawled page that we crawled gets stored in a folder. 
+
 (b) The Crawling or data collection strategy (do you handle duplicate URLs, is your crawler parallel, etc.)
 For our crawler we are able to handle the duplicate urls. 
 (c) Data Structures employed
