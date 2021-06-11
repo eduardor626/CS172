@@ -13,11 +13,12 @@ The max number of URLs that can be scrapped is approximately 1112. Once it reach
 The crawler expects 3 command line inputs. First is the file containing seed URLs. Second input is the number of pages to crawl. Third input is the output file we wish the program to write to. Format is as follows `python3 ./crawler.py < seed − Fileseed.txt > < num − pages : <1112 > <output−file >`.
 Sample call to the crawler: `python3 .\crawler.py seedUrls.txt 6 sd1.json`
 ## Part 2 - Indexer
+### (a) 
 Instructions on how to deploy the system. Ideally, you should include an indexer.bat (Windows) or indexer.sh (Unix/Linux) executable file that takes as input all necessary parameters .  Example: [user@server] ./indexer.sh < output − dir >
 
 
 ## Part 3 - Extension
-For our extenstions we used a web-based Interface where in the interface includes a textbox and a search button. For our Interface, 
+The feature that is implemented in this part is a web-based interface. For our extenstions we build a web-based Interface where it includes a textbox and a search button. For our Interface, we can create a cluster, search for the urls and delete the tables that the url appears from. The feature we chosen has its benefits where it is not difficult to navigate the website and test out the search bar. 
 
 
 The Cluster gets created: 
