@@ -18,7 +18,7 @@ Instructions on how to deploy the system. Ideally, you should include an indexer
 
 
 ## Part 3 - Extension
-The feature that is implemented in this part is a web-based interface. For our extenstions we build a web-based Interface where it includes a textbox and a search button. For our Interface, we can create a cluster, search for the urls and delete the tables that the url appears from. The feature we chosen has its benefits where it is not difficult to navigate the website and test out the search bar. 
+The feature that we implemented for this project is a web-based interface. For our extensions we build a web-based Interface where it includes a textbox and a search button. For our Interface, we can create a cluster, search for the urls and delete the tables that the url appears from. The feature we chosen has its benefits where it is not difficult for the user to navigate the website and test out it out. 
 
 
 The Cluster gets created: 
