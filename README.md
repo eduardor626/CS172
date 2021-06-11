@@ -14,7 +14,10 @@ The crawler expects 3 command line inputs. First is the file containing seed URL
 Sample call to the crawler: `python3 .\crawler.py seedUrls.txt 6 sd1.json`
 ## Part 2 - Indexer
 ### (a) 
-Instructions on how to deploy the system. Ideally, you should include an indexer.bat (Windows) or indexer.sh (Unix/Linux) executable file that takes as input all necessary parameters .  Example: [user@server] ./indexer.sh < output − dir >
+Make a new folder name `config` in the frontend folder, you can use this command line `mkdir config`. Inside of the folder make a file name `default.json`. In the `json` folder include this specifically in `default.json` file: 
+![image](https://user-images.githubusercontent.com/43709736/121604304-1caee700-c9ff-11eb-8037-fbe52ffbac98.png).
+
+Then go to Elastic Cloud, click on create deployment, select elastic stack, give your deployment a name, save your deployment and then copy down the information under Cloud ID. Include your information of the deployment name the person created and there password. 
 
 
 ## Part 3 - Extension
@@ -39,11 +42,6 @@ Table can be delete:
 2. Type `npm run start` or `npm start` to start the server in the frontend folder
 3. Server should be running on http:localhost:3000
 
-### Additional Instructions 
-Make a new folder name `config` in the frontend folder, you can use this command line `mkdir config`. Inside of the folder make a file name `default.json`. In the `json` folder include this specifically in `default.json` file: 
-![image](https://user-images.githubusercontent.com/43709736/121604304-1caee700-c9ff-11eb-8037-fbe52ffbac98.png).
-
-Then go to Elastic Cloud, click on create deployment, select elastic stack, give your deployment a name, save your deployment and then copy down the information udner Cloud ID. Include your information of the deployment name the person created and there password. 
  
 
 ## Authors and Contributor List:
